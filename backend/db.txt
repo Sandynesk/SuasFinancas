@@ -1,0 +1,19 @@
+CREATE financeDB
+
+
+USE financeDB;
+
+-- Crie a tabela de transações
+CREATE TABLE IF NOT EXISTS Transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    amount FLOAT NOT NULL,
+    type ENUM('income', 'expense') NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM transactions
+
+-- Inserir transações de entrada
+INSERT INTO Transactions (description, amount, type)
+VALUES ('Salário', 5000, 'income');
