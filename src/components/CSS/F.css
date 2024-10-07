@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jost", sans-serif;
+  }
+  
+  html {
+    font-size: 62.5%;
+  }
+  
+  .finance-tracker {
+    padding: 2rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #dfc9ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+    top: 250px;
+
+  }
+  
+  .tracker-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .balance-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+    font-size: 1.8rem;
+  }
+  
+  .balance-info span {
+    font-weight: bold;
+  }
+  
+  .income {
+    color: #28a745;
+  }
+  
+  .expense {
+    color: #dc3545;
+  }
+  
+  .transaction-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    gap: 1rem;
+    max-width: 70%;
+    margin: 0 auto;
+  }
+  
+  .transaction-form input, 
+  .transaction-form select, 
+  .transaction-form button {
+    padding: 1rem;
+    font-size: 1.6rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .add-transaction {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-transaction:hover {
+    background-color: #45a049;
+  }
+  
+  .transaction-list {
+    list-style: none;
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  .transaction-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.6rem;
+  }
+  
+  .transaction-list li.income {
+    color: #28a745;
+  }
+  
+  .transaction-list li.expense {
+    color: #dc3545;
+  }
+  
+  .transaction-list button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .transaction-list button:hover {
+    background-color: #d11a1a;
+  }
+  
+  .no-transactions {
+    color: #aaa;
+    font-size: 1.6rem;
+  }
+  
