@@ -1,6 +1,6 @@
-Aqui está o conteúdo formatado do seu README.md:
 
-```markdown
+
+
 # Projeto CRUD Test com Node.js, Express, Sequelize e MySQL
 
 ## Descrição do Projeto
@@ -22,14 +22,14 @@ Este projeto é um backend CRUD simples construído com Node.js e Express. Ele u
 ## Como Configurar o Projeto
 
 ### 1. Clonar o repositório
-```bash
+
 git clone <URL_DO_REPOSITORIO>
 cd crud-test-project
 ```
 
 ### 2. Inicializar o Projeto e Instalar Dependências
 Primeiro, inicialize o package.json no diretório do projeto:
-```bash
+
 npm init -y
 ```
 Agora, instale as dependências necessárias:
