@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+Aqui está o conteúdo formatado do seu README.md:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# Projeto CRUD Test com Node.js, Express, Sequelize e MySQL
 
-## Available Scripts
+## Descrição do Projeto
+Este projeto é um backend CRUD simples construído com Node.js e Express. Ele usa o Sequelize como ORM para interagir com um banco de dados MySQL. O projeto inclui rotas para gerenciar transações (inserir, ler, atualizar e excluir dados).
 
-In the project directory, you can run:
+## Tecnologias Utilizadas
+- **Node.js**: Ambiente de execução JavaScript no servidor.
+- **Express**: Framework web para Node.js.
+- **Sequelize**: ORM para banco de dados SQL (usado com MySQL neste projeto).
+- **MySQL**: Banco de dados relacional.
+- **Nodemon**: Ferramenta para reiniciar automaticamente o servidor durante o desenvolvimento.
+- **CORS**: Middleware para lidar com permissões de recursos entre diferentes origens (Cross-Origin Resource Sharing).
+- **Body-Parser**: Middleware para processar dados do corpo da requisição.
 
-### `npm start`
+## Pré-requisitos
+- Node.js (versão >= 12)
+- MySQL instalado e configurado
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Como Configurar o Projeto
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Clonar o repositório
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd crud-test-project
+```
 
-### `npm test`
+### 2. Inicializar o Projeto e Instalar Dependências
+Primeiro, inicialize o package.json no diretório do projeto:
+```bash
+npm init -y
+```
+Agora, instale as dependências necessárias:
+```bash
+npm install express cors body-parser sequelize mysql2
+```
+Instale Nodemon como dependência de desenvolvimento:
+```bash
+npm install nodemon --save-dev
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Configurar o Sequelize e o MySQL
+Crie um arquivo `config/database.js` para configurar a conexão com o MySQL:
+```javascript
+const { Sequelize } = require('sequelize');
 
-### `npm run build`
+const sequelize = new Sequelize('NOME_DO_BANCO', 'USUARIO', 'SENHA', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+module.exports = sequelize;
+```
+Substitua 'NOME_DO_BANCO', 'USUARIO' e 'SENHA' pelos seus dados de conexão ao banco de dados MySQL.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 4. Criar as Rotas
+Crie uma rota de transações no arquivo `routes/Transactions.js`:
+```javascript
+const express = require('express');
+const router = express.Router();
+// Supondo que você já tenha criado o modelo de Transação no Sequelize
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// Rota para buscar todas as transações
+router.get('/', async (req, res) => {
+  try {
+    // Código para buscar transações
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar transações.' });
+  }
+});
 
-### `npm run eject`
+module.exports = router;
+```
+Adapte as rotas conforme as funcionalidades do seu CRUD.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 5. Configurar o Servidor
+Crie o arquivo `index.js` com o seguinte código:
+```javascript
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const sequelize = require('./config/database'); // Importa a conexão com o banco de dados
+const transactionRoutes = require('./routes/Transactions.js'); // Rotas de transação
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const app = express();
+const PORT = 3001;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+// Rotas
+app.use('/api/transactions', transactionRoutes);
 
-## Learn More
+// Sincronizar com o banco de dados e iniciar o servidor
+sequelize.sync().then(() => {
+  console.log('Conectado ao banco de dados MySQL.');
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+  });
+}).catch((error) => {
+  console.log('Erro ao conectar ao banco de dados:', error);
+});
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 6. Configurar o Nodemon
+No arquivo `package.json`, adicione o script para rodar o servidor com nodemon:
+```json
+"scripts": {
+  "start": "node index.js",
+  "dev": "nodemon index.js"
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 7. Rodar o Projeto
+Para rodar o projeto em modo de desenvolvimento, execute:
+```bash
+npm run dev
+```
+Isso iniciará o servidor e qualquer mudança no código será automaticamente recarregada.
 
-### Code Splitting
+## Estrutura do Projeto
+```
+crud-test-project/
+│
+├── config/
+│   └── database.js      # Configuração da conexão com o banco de dados
+│
+├── routes/
+│   └── Transactions.js  # Rotas de CRUD para transações
+│
+├── node_modules/        # Dependências do projeto
+│
+├── package.json         # Arquivo de configuração do Node.js e dependências
+│
+└── index.js             # Arquivo principal do servidor
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contribuição
+Sinta-se à vontade para contribuir com melhorias ou correções. Basta fazer um fork do repositório e criar um pull request.
 
-### Analyzing the Bundle Size
+## Licença
+Este projeto é licenciado sob a MIT License. Veja o arquivo LICENSE para mais detalhes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
